@@ -3,5 +3,9 @@ package com.recipeproject.repositories;
 import com.recipeproject.domain.UnitOfMeasure;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UnitOfMeasureReposityory extends CrudRepository<UnitOfMeasure,Long>  {
+import java.util.Optional;
+
+public interface UnitOfMeasureReposityory extends CrudRepository<UnitOfMeasure, Long> {
+
+    Optional<UnitOfMeasure> findByDescription(String description);
 }
