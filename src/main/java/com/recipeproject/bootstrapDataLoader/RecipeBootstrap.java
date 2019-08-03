@@ -4,20 +4,22 @@ import com.recipeproject.domain.*;
 import com.recipeproject.repositories.CategoryRepository;
 import com.recipeproject.repositories.RecipeRepository;
 import com.recipeproject.repositories.UnitOfMeasureReposityory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
+@Slf4j
+//@RequiredArgsConstructor
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
 
-    Logger logger = Logger.getLogger(RecipeBootstrap.class.getName());
     private final CategoryRepository categoryRepository;
     private final UnitOfMeasureReposityory unitOfMeasureReposityory;
     private final RecipeRepository recipeRepository;
@@ -29,6 +31,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional //create transaction around this method, so now everything is going to happen in the same transactionalcontext.
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getRecipe());
     }
@@ -93,7 +96,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacRecipe.getCategories().add(italianCategory);
 
         recipes.add(guacRecipe);
-        logger.info("Recipe loaded on startup");
+        log.info("Recipe loaded on startup");
         return recipes;
     }
 
