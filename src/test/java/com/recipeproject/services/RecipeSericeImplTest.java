@@ -9,9 +9,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @Slf4j
@@ -42,4 +44,17 @@ public class RecipeSericeImplTest {
         verify(recipeRepository, times(1)).findAll();
     }
 
+    @Test
+    public void getRecipeByIdtest() throws Exception {
+        Recipe recipe1 = new Recipe();
+        recipe1.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe1);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe find = recipeSericeImpl.findById(1L);
+        assertNotNull("Null Recipe returned", find);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+    }
 }
