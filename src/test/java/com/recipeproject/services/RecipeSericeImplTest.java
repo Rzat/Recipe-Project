@@ -1,5 +1,7 @@
 package com.recipeproject.services;
 
+import com.recipeproject.converters.RecipeCommandToRecipe;
+import com.recipeproject.converters.RecipeToRecipeCommand;
 import com.recipeproject.domain.Recipe;
 import com.recipeproject.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +26,17 @@ public class RecipeSericeImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);//setup the mock and thats tell mockito  give me a mock recipe
         // repository.
-        recipeSericeImpl = new RecipeSericeImpl(recipeRepository);
+        recipeSericeImpl = new RecipeSericeImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
