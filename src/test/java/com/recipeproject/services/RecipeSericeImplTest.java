@@ -24,6 +24,9 @@ public class RecipeSericeImplTest {
     RecipeSericeImpl recipeSericeImpl;
 
     @Mock
+    RecipeService recipeService;
+
+    @Mock
     RecipeRepository recipeRepository;
 
     @Mock
@@ -65,4 +68,20 @@ public class RecipeSericeImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
+
+    /*ss
+    @Test
+    public void deleteById() {
+        //given
+        Long deleteId = Long.valueOf(2L);
+
+        //when
+        recipeService.deleteById(deleteId);
+        //no when since method has void return type
+
+        //then
+        verify(recipeRepository, times(1)).deleteById(anyLong());
+
+    }
+    */
 }
