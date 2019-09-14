@@ -53,6 +53,6 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
             );
         }
 
-        return null;
+        return recipeCommand;
     }
 }

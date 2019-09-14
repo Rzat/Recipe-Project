@@ -47,11 +47,12 @@ public class RecipeSericeImpl implements RecipeService {
     @Override
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
-        Recipe detatchedRecipe = recipeCommandToRecipe.convert(command); //just a pojo not a hibernate, that'swhy it called as detatchedRecipe
-        Recipe savedRecipe = recipeRepository.save(detatchedRecipe);
-        log.debug(String.valueOf(savedRecipe.getId()));
+        Recipe detachedRecipe = recipeCommandToRecipe.convert(command); //just a pojo not a hibernate, that'swhy it called as detatchedRecipe
+        Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+        log.debug("Saved RecipeId" + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
         //First convert Recipe command To Recipe
         //and then Recipe To Recipe Command back
     }
+    
 }
