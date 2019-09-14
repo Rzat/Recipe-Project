@@ -69,19 +69,19 @@ public class RecipeSericeImplTest {
         verify(recipeRepository, never()).findAll();
     }
 
-    /*ss
+
     @Test
     public void deleteById() {
         //given
         Long deleteId = Long.valueOf(2L);
 
         //when
-        recipeService.deleteById(deleteId);
+        recipeSericeImpl.deleteById(deleteId);
         //no when since method has void return type
 
         //then
         verify(recipeRepository, times(1)).deleteById(anyLong());
 
     }
-    */
+
 }
