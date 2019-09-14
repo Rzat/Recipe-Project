@@ -54,5 +54,12 @@ public class RecipeSericeImpl implements RecipeService {
         //First convert Recipe command To Recipe
         //and then Recipe To Recipe Command back
     }
-    
+
+    @Override
+    @Transactional
+    public RecipeCommand findCommandById(Long id) {
+        return recipeToRecipeCommand.convert(findById(id));
+    }
+
+
 }

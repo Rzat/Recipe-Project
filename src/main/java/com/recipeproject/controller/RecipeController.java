@@ -20,7 +20,7 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @RequestMapping("/recipe/show/{id}")
+    @RequestMapping("/recipe/{id}/show")
     public String recipeFindById(@PathVariable String id, Model model) {
         log.debug("Inside RecipeFindById Controller");
         model.addAttribute("recipe", recipeService.findById(new Long(id)));
@@ -33,13 +33,17 @@ public class RecipeController {
         return "recipe/recipeform";
     }
 
+    @RequestMapping("recipe/{id}/update")
+    public String updateRecipe(@PathVariable String id, Model model) {
+        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
+        return "recipe/recipeform";
+    }
+
     @PostMapping("recipe")
-    //@RequestMapping
-    public String saveOrUpdate(@ModelAttribute RecipeCommand recipeCommand)//@ModelAttribute is used to tell spring to
-    // bind the form post parameter to the RecipeCommand object.
+    public String saveOrUpdate(@ModelAttribute RecipeCommand recipeCommand)//@ModelAttribute is used to tell spring to bind the form post parameter to the RecipeCommand object.
     {
-            RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
-        return "redirect:/recipe/show/" + savedCommand.getId();
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
+        return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
 
