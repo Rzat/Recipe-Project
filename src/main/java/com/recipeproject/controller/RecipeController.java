@@ -54,5 +54,12 @@ public class RecipeController {
         return "redirect:/";
     }
 
+    @GetMapping("/recipe/{id}/viewIngredients")
+    public String viewIngredients(@PathVariable String id, Model model) {
+        log.debug("View recipe id:" + id);
+        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
+        return "recipe/ingredients/list";
+    }
+    
 
 }
