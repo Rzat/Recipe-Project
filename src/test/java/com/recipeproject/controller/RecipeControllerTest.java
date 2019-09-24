@@ -92,20 +92,7 @@ class RecipeControllerTest {
         verify(recipeService, times(1)).deleteById(anyLong());
     }
 
-    @Test
-    void viewIngredient() throws Exception {
-        RecipeCommand recipe = new RecipeCommand();
 
-        when(recipeService.findCommandById(anyLong())).thenReturn(recipe);
-
-        mockMvc.perform(get("/recipe/1/viewIngredients"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("recipe/ingredients/list"))
-                .andExpect(model().attributeExists("recipe"));
-
-
-        verify(recipeService, times(1)).findCommandById(anyLong());
-    }
 
 
 }
