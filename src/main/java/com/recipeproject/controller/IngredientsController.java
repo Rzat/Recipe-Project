@@ -2,6 +2,8 @@ package com.recipeproject.controller;
 
 
 import com.recipeproject.commands.IngredientCommand;
+import com.recipeproject.commands.RecipeCommand;
+import com.recipeproject.commands.UnitOfMeasureCommand;
 import com.recipeproject.services.IngredientsService;
 import com.recipeproject.services.RecipeService;
 import com.recipeproject.services.UnitOfMeasureService;
@@ -56,5 +58,16 @@ public class IngredientsController {
         return "redirect:/recipe/" + command.getRecipeId() + "/ingredients/" + command.getId() + "/show";
     }
 
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model) {
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
 
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+        return "recipe/ingredients/ingredientform";
+    }
 }
