@@ -3,6 +3,7 @@ package com.recipeproject.services;
 import com.recipeproject.converters.RecipeCommandToRecipe;
 import com.recipeproject.converters.RecipeToRecipeCommand;
 import com.recipeproject.domain.Recipe;
+import com.recipeproject.exceptions.NotFoundException;
 import com.recipeproject.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -23,8 +24,6 @@ public class RecipeSericeImplTest {
 
     RecipeSericeImpl recipeSericeImpl;
 
-    @Mock
-    RecipeService recipeService;
 
     @Mock
     RecipeRepository recipeRepository;
@@ -84,4 +83,13 @@ public class RecipeSericeImplTest {
 
     }
 
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeSericeImpl.findById(1L);
+        //should go boo
+    }
 }
